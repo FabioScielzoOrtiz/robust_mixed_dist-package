@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="example_package_FabioScielzoOrtiz",
-    version="0.0.1",
+    version="0.0.2",
     author="Fabio Scielzo Ortiz",
     author_email="fabioscielzo98@gmail.com",
     description="A small example package",
