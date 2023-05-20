@@ -832,7 +832,7 @@ def Robust_Mahalanobis_Dist_Matrix(Data, Method, epsilon, alpha=None, n_iters=20
     # Se calcula la distancia de Mahalanobis entre cada par de filas de Data usando como S_inv la inversa de la matriz de covarianzas robusta.
     for i in range(0, n):
          for r in range(i+1, n):        
-             M[i,r] = Mahalanobis_Dist(x = np.array([Data[i,:] - Data[r,:]]) , S_inv=S_inv) 
+             M[i,r] = Mahalanobis_Dist(x_i=Data[i,:], x_r=Data[r,:], S_inv=S_inv) 
     M = M + M.T                     
     return M 
 
