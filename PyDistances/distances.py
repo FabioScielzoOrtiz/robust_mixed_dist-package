@@ -210,7 +210,7 @@ def Mahalanobis_Dist_Matrix(Data):
     S_inv=np.linalg.inv( np.cov(Data , rowvar=False) )
     for i in range(0, n):
          for r in range(i+1, n):
-            M[i,r] = Mahalanobis_Dist(x = np.array([Data[i,:] - Data[r,:]]) , S_inv=S_inv ) 
+            M[i,r] = Mahalanobis_Dist(x_i=Data[i,:], x_r=Data[r,:], S_inv=S_inv ) 
     M = M + M.T
     return M 
 
