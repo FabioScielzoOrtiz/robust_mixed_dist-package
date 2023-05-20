@@ -1,3 +1,5 @@
+import numpy as np
+
 def Dist_Euclidea(x_i, x_r): 
     """
     Calcula la distancia Euclidea entre dos vectores de observaciones.
