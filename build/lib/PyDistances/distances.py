@@ -885,9 +885,9 @@ class GeneralizedGowerDistance:
         self.Quant_Data = Data.iloc[:,0:p1] 
         self.Binary_Data = Data.iloc[: , (p1):(p1+p2)]
         self.Multiple_Data = Data.iloc[:,(p1+p2):(p1+p2+p3) ]
-        self.Matrix_Dist_d1 = globals()[d1+"Dist_Matrix"]  
-        self.Matrix_Dist_d2 = globals()[d2+"Dist_Matrix"] 
-        self.Matrix_Dist_d3 = globals()[d3+"Dist_Matrix"]
+        self.Matrix_Dist_d1 = globals()[d1+"_Dist_Matrix"]  
+        self.Matrix_Dist_d2 = globals()[d2+"_Dist_Matrix"] 
+        self.Matrix_Dist_d3 = globals()[d3+"_Dist_Matrix"]
 
     def compute(self,Related_Metric_Scaling=False,tol=0.009,d=2):
         # Funcion que calcula la distancia de Gower generalizada (Related_Metric_Scaling=False) o RMS (Related_Metric_Scaling=True). para los parametros especificados en la inicializacion.
