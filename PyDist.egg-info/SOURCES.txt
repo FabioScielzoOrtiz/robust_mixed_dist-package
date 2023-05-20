@@ -1,9 +1,0 @@
-LICENSE
-README.md
-setup.py
-PyDist.egg-info/PKG-INFO
-PyDist.egg-info/SOURCES.txt
-PyDist.egg-info/dependency_links.txt
-PyDist.egg-info/top_level.txt
-PyDist_FabioScielzoOrtiz/__init__.py
-PyDist_FabioScielzoOrtiz/distances.py
