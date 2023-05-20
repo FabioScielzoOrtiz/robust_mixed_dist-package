@@ -911,7 +911,7 @@ class GeneralizedGowerDistance:
         if p2 == 0 and p1 != 0 and p3 != 0 : 
             if d1 == 'Minkowski' :  
                    D1 = Matrix_Dist_d1(Quant_Data, q)
-            elif d1 == 'Mahalanobis_Robust' :  
+            elif d1 == 'Robust_Mahalanobis' :  
                    D1 = Matrix_Dist_d1(Quant_Data, Method, epsilon, alpha, n_iters)
             else: 
                    D1 = Matrix_Dist_d1(Quant_Data)
@@ -920,7 +920,7 @@ class GeneralizedGowerDistance:
         if p3 == 0 and p1 != 0 and p2 != 0 : 
             if d1 == 'Minkowski' :  
                    D1 = Matrix_Dist_d1(Quant_Data, q)
-            elif d1 == 'Mahalanobis_Robust' :  
+            elif d1 == 'Robust_Mahalanobis' :  
                    D1 = Matrix_Dist_d1(Quant_Data, Method, epsilon, alpha, n_iters)
             else: 
                    D1 = Matrix_Dist_d1(Quant_Data)
@@ -937,7 +937,7 @@ class GeneralizedGowerDistance:
         if p2 == 0 and p3 == 0 and p1 != 0 : 
             if d1 == 'Minkowski' :  
                     D1 = Matrix_Dist_d1(Quant_Data, q)
-            elif d1 == 'Mahalanobis_Robust' :   
+            elif d1 == 'Robust_Mahalanobis' :   
                     D1 = Matrix_Dist_d1(Quant_Data, Method, epsilon, alpha, n_iters)
             else: 
                     D1 = Matrix_Dist_d1(Quant_Data)
@@ -946,7 +946,7 @@ class GeneralizedGowerDistance:
         if p1 != 0 and p2 != 0 and p3 != 0 : 
             if d1 == 'Minkowski' :  
                     D1 = Matrix_Dist_d1(Quant_Data, q)
-            elif d1 == 'Mahalanobis_Robust' :  
+            elif d1 == 'Robust_Mahalanobis' :  
                     D1 = Matrix_Dist_d1(Quant_Data, Method, epsilon, alpha, n_iters)
             else: 
                     D1 = Matrix_Dist_d1(Quant_Data)
