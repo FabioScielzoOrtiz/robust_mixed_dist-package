@@ -4,7 +4,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="PyDist",
+    name="PyDistances",
     version="0.0.1",
     author="Fabio Scielzo Ortiz",
     author_email="fabioscielzo98@gmail.com",
