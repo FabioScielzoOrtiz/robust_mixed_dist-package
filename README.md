@@ -57,12 +57,15 @@ Data.head() # p1=4, p2=3, p3=3
 
 ## Computing Euclidean distance
 
+We compute the Euclidean distance between observation of index 0 and itself.
 ```python
 Euclidean_Dist(Data_quant.iloc[0,:], Data_quant.iloc[0,:])
 ```
     
      0.0
 
+
+We compute the Euclidean distance between observation of index 0 and the one of index 2.
 
 ```python
 Euclidean_Dist(Data_quant.iloc[0,:], Data_quant.iloc[2,:])
@@ -71,7 +74,7 @@ Euclidean_Dist(Data_quant.iloc[0,:], Data_quant.iloc[2,:])
      1550000.002117049
 
 
-
+We compute the Euclidean distances matrix for the data-set `Data_quant`.
 ```python
 Euclidean_Dist_Matrix(Data_quant)
 ```
@@ -90,6 +93,10 @@ array([[       0.        ,   150000.00727904,  1550000.00211705, ...,
        [12100000.00553371, 11950000.00426352, 13650000.00297389, ...,
         13600000.00447653,  9400000.00011113,        0.        ]])
 ```
+
+<br>
+
+Now, we are going to repeat the same procedure with other available distances in `PyDistances`.
 
 <br>
 
@@ -435,6 +442,8 @@ array([[ 0.        ,  0.89250845,  2.74347099, ...,  1.48503889,
 <br>
 
 ## Computing Generalized Gower distance and Releted Metric Scaling
+
+To end this tutorial we are going to compute both the Gower distance matrix and the Related Metric Scaling matrix for the mixed data-set `Data`. And we are going to do that considering all the possible combinations of the quantitative, binary and multiclass distances. Then, we will save all the resulting matrix in a Python dictionary.
 
 ```python
 D_GG_list_maha_robust = []
