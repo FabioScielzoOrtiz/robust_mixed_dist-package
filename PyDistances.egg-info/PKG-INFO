@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: PyDistances
-Version: 0.0.15
+Version: 0.0.16
 Summary: This is a package for computing distances among observations of statistical variables, such as: Euclidean, Minkowski, Canberra, Pearson, Mahalanobis, Robust Mahalanobis, Gower, Generalized Gower and Related Metric Scaling (RelMS). A total of 41 statistical distances can be computed.
 Home-page: https://github.com/FabioScielzoOrtiz/Distances_Package
 Author: Fabio Scielzo Ortiz
@@ -945,16 +945,16 @@ dic_distance_matrix
 
 # Bibliography
 
-Albarrán, I.,  P. Alonso, and A. Grané  “Profile Identification via Weighted Related Metric Scaling: An Application to Dependent Spanish Children.” \emph{Journal of the Royal Statistical Society}. Series A, Statistics in Society 178, no. 3 (2015): 593–618. \url{https://doi.org/10.1111/rssa.12084stex:B88856BB540BB0134A72028E02D7B00CBED08217}.
+Albarrán, I.,  P. Alonso, and A. Grané  “Profile Identification via Weighted Related Metric Scaling: An Application to Dependent Spanish Children.” Journal of the Royal Statistical Society. Series A, Statistics in Society 178, no. 3 (2015): 593–618. https://doi.org/10.1111/rssa.12084stex:B88856BB540BB0134A72028E02D7B00CBED08217.
 
-Cuadras, C. M., and J. Fortiana. “Chapter 25 - Visualizing Categorical Data with Related Metric Scaling.” In Visualization of Categorical Data, 365–76. \emph{Academic Press}, 1998. \url{https://doi.org/10.1016/B978-012299045-8/50028-0}.
+Cuadras, C. M., and J. Fortiana. “Chapter 25 - Visualizing Categorical Data with Related Metric Scaling.” In Visualization of Categorical Data, 365–76. Academic Press, 1998. https://doi.org/10.1016/B978-012299045-8/50028-0.
 
-Devlin, S. J., R. Gnanadesikan, and J. R. Kettenring. “Robust Estimation and Outlier Detection with Correlation Coefficients.” \emph{Biometrika} 62, no. 3 (1975): 531–45. \url{https://doi.org/10.1093/biomet/62.3.531}.
+Devlin, S. J., R. Gnanadesikan, and J. R. Kettenring. “Robust Estimation and Outlier Detection with Correlation Coefficients.” Biometrika 62, no. 3 (1975): 531–45. https://doi.org/10.1093/biomet/62.3.531.
 
-Grané, A.,  Manzi G. and S. Salini. "Smart Visualization of Mixed Data". \emph{Stats}  n.º 4 (2021): 472–485. \url{https://doi.org/10.3390/stats4020029}
+Grané, A.,  Manzi G. and S. Salini. "Smart Visualization of Mixed Data". Stats  n.º 4 (2021): 472–485. https://doi.org/10.3390/stats4020029
 
 
-Gower, J. C. “A General Coefficient of Similarity and Some of Its Properties.” \emph{Biometrics} 27, no. 4 (1971): 857–71.  \url{https://doi.org/10.2307/2528823}.
+Gower, J. C. “A General Coefficient of Similarity and Some of Its Properties.” Biometrics 27, no. 4 (1971): 857–71.  https://doi.org/10.2307/2528823.
 
-Gnanadesikan, R. Methods for Statistical Data Analysis of Multivariate Observations. 2nd ed. New York  etc.: : \emph{John Wiley and Sons}, 1997.
+Gnanadesikan, R. Methods for Statistical Data Analysis of Multivariate Observations. 2nd ed. New York  etc.: : John Wiley and Sons, 1997.
 
