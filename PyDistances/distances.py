@@ -431,6 +431,7 @@ def Matching_Dist_Matrix(Data):
 def Gower_Similarity_Matrix(Data, p1, p2, p3):
     """
     Calcula la matriz de similaridades de Gower  para un conjunto de datos.
+    Se ha seguido a Gower (1971).
 
     Parametros (inputs)
     ----------
@@ -771,6 +772,7 @@ def Delvin_algorithm(matrix, epsilon, n_iters):
 def Robust_Mahalanobis_Dist(x_i, x_r, Data, Method, epsilon, alpha=None, n_iters=20) :
     """
     Calcula la matriz de distancias de Mahalanobis robusta para un conjunto de datos dado.
+    Se ha seguido a Gnanadesikan (1997) y Delvin et al. (1975).
 
     Parametros (inputs)
     ----------
@@ -840,7 +842,8 @@ def Robust_Mahalanobis_Dist_Matrix(Data, Method, epsilon, alpha=None, n_iters=20
 
 class GeneralizedGowerDistance: 
     """
-    Calcula la matriz de distancias de Gower generalizada y RMS para un conjunto de datos.
+    Calcula la matriz de distancias de Gower generalizada y RMS para un conjunto de datos. 
+    Se ha seguido Cuadras and Fortiana (1998), Albarrán et al. (2015) and Grané et al. (2021).
 
     Parametros (inputs)
     ----------
@@ -1115,6 +1118,20 @@ class GeneralizedGowerDistance:
         # Se devuelven como outputs D y D_2.
         return D, D_2
 
+
+## Bibliography
+
+# Albarrán, I.,  P. Alonso, and A. Grané  “Profile Identification via Weighted Related Metric Scaling: An Application to Dependent Spanish Children.” \emph{Journal of the Royal Statistical Society}. Series A, Statistics in Society 178, no. 3 (2015): 593–618. \url{https://doi.org/10.1111/rssa.12084stex:B88856BB540BB0134A72028E02D7B00CBED08217}.
+
+# Cuadras, C. M., and J. Fortiana. “Chapter 25 - Visualizing Categorical Data with Related Metric Scaling.” In Visualization of Categorical Data, 365–76. \emph{Academic Press}, 1998. \url{https://doi.org/10.1016/B978-012299045-8/50028-0}.
+
+# Devlin, S. J., R. Gnanadesikan, and J. R. Kettenring. “Robust Estimation and Outlier Detection with Correlation Coefficients.” \emph{Biometrika} 62, no. 3 (1975): 531–45. \url{https://doi.org/10.1093/biomet/62.3.531}.
+
+# Grané, A.,  Manzi G. and S. Salini. "Smart Visualization of Mixed Data". \emph{Stats}  n.º 4 (2021): 472–485. \url{https://doi.org/10.3390/stats4020029}
+
+# Gower, J. C. “A General Coefficient of Similarity and Some of Its Properties.” \emph{Biometrics} 27, no. 4 (1971): 857–71.  \url{https://doi.org/10.2307/2528823}.
+
+# Gnanadesikan, R. Methods for Statistical Data Analysis of Multivariate Observations. 2nd ed. New York  etc.: : \emph{John Wiley and Sons}, 1997.
 
 
 
