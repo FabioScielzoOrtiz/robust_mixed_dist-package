@@ -943,6 +943,81 @@ dic_distance_matrix
 ```
 
 
+## Computational Cost Testing
+
+In this case, we are going to use the entire `House_Price.csv` dataset, which has 1905 rows, to perform a computational cost test (in terms of time) of the new distance metrics included in `PyDistances`.
+
+```python
+Data = pd.read_csv('House_Price.csv')
+Data = Data.loc[:, ['latitude', 'longitude', 'price', 'size_in_m_2', 'balcony_recode', 'private_garden_recode', 'private_gym_recode', 'quality_recode', 'no_of_bathrooms', 'no_of_bedrooms']]
+```
+
+```python
+Data.shape
+```
+```      
+(1905, 10)
+```
+
+```python
+Generalized_Gower_Distance_init = GeneralizedGowerDistance(Data=Data, p1=4, p2=3, p3=3, d1='Robust_Mahalanobis', d2='Jaccard', d3='Matching', epsilon=0.05, Method='trimmed', alpha=0.1)
+D, D_2 = Generalized_Gower_Distance_init.compute(Related_Metric_Scaling=False)
+
+# Time: 1.11 minutes.
+```
+
+```python
+Generalized_Gower_Distance_init = GeneralizedGowerDistance(Data=Data, p1=4, p2=3, p3=3, d1='Robust_Mahalanobis', d2='Jaccard', d3='Matching', epsilon=0.05, Method='winsorized', alpha=0.1)
+D, D_2 = Generalized_Gower_Distance_init.compute(Related_Metric_Scaling=False)
+
+# Time: 1.15 minutes.
+```
+
+
+```python
+Generalized_Gower_Distance_init = GeneralizedGowerDistance(Data=Data, p1=4, p2=3, p3=3, d1='Robust_Mahalanobis', d2='Jaccard', d3='Matching', epsilon=0.05, Method='MAD', alpha=0.1)
+D, D_2 = Generalized_Gower_Distance_init.compute(Related_Metric_Scaling=False)
+
+# Time: 1.12 minutes.
+```
+
+```python
+Generalized_Gower_Distance_init = GeneralizedGowerDistance(Data=Data, p1=4, p2=3, p3=3, d1='Robust_Mahalanobis', d2='Jaccard', d3='Matching', epsilon=0.05, Method='trimmed', alpha=0.1)
+D, D_2 = Generalized_Gower_Distance_init.compute(Related_Metric_Scaling=True)
+
+# Time: 1.58 minutes.
+```
+
+```python
+Generalized_Gower_Distance_init = GeneralizedGowerDistance(Data=Data, p1=4, p2=3, p3=3, d1='Robust_Mahalanobis', d2='Jaccard', d3='Matching', epsilon=0.05, Method='winsorized', alpha=0.1)
+D, D_2 = Generalized_Gower_Distance_init.compute(Related_Metric_Scaling=True)
+
+# Time: 1.53 minutes.
+```
+
+```python
+Generalized_Gower_Distance_init = GeneralizedGowerDistance(Data=Data, p1=4, p2=3, p3=3, d1='Robust_Mahalanobis', d2='Jaccard', d3='Matching', epsilon=0.05, Method='MAD', alpha=0.1)
+D, D_2 = Generalized_Gower_Distance_init.compute(Related_Metric_Scaling=True)
+
+# Time: 1.55 minutes.
+```
+
+We can compare these times with the one obtained by (simple) Gower distance.
+
+```python
+Gower_Dist_Matrix(Data, p1=4, p2=3, p3=3)
+
+# Time: 38 seconds.
+```
+
+```python
+
+```
+
+```python
+
+```
+
 # Bibliography
 
 Albarrán, I.,  P. Alonso, and A. Grané  “Profile Identification via Weighted Related Metric Scaling: An Application to Dependent Spanish Children.” Journal of the Royal Statistical Society. Series A, Statistics in Society 178, no. 3 (2015): 593–618. https://doi.org/10.1111/rssa.12084stex:B88856BB540BB0134A72028E02D7B00CBED08217.
