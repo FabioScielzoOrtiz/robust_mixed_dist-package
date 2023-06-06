@@ -996,13 +996,7 @@ Gower_Dist_Matrix(Data, p1=4, p2=3, p3=3)
 # Time: 38 seconds.
 ```
 
-```python
 
-```
-
-```python
-
-```
 
 # Bibliography
 
