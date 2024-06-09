@@ -156,7 +156,7 @@ class get_dist_obs:
             xi = xi.to_numpy() 
         if isinstance(xr, (pl.DataFrame, pd.DataFrame)) :
             xr = xr.to_numpy().flatten()
-        elif isinstance(xi, (pd.Series, pl.Series)) :
+        elif isinstance(xr, (pd.Series, pl.Series)) :
             xr = xr.to_numpy() 
         
         d1 = self.d1 ; d2 = self.d2 ; d3 = self.d3
@@ -518,7 +518,8 @@ class RelMS_dist_matrix:
     Calculates the Related Metric Scaling matrix for a data matrix.
     """
 
-    def __init__(self, p1,p2,p3,d1='euclidean',d2='sokal',d3='matching',q=1, method='trimmed', epsilon=0.05, alpha=0.05, n_iters=20, weights=None):
+    def __init__(self, p1,p2,p3,d1='euclidean',d2='sokal',d3='matching',q=1, method='trimmed', 
+                 epsilon=0.05, alpha=0.05, n_iters=20, weights=None, fast_VG=False):
         """
         Constructor method.
         
@@ -535,7 +536,8 @@ class RelMS_dist_matrix:
         """
         self.p1 = p1 ; self.p2 = p2 ; self.p3 = p3
         self.d1 = d1 ; self.d2 = d2 ; self.d3 = d3
-        self.q = q ; self.method = method ; self.alpha = alpha ; self.epsilon = epsilon ; self.n_iters = n_iters ; self.weights = weights
+        self.q = q ; self.method = method ; self.alpha = alpha ; self.fast_VG = fast_VG;
+        self.epsilon = epsilon ; self.n_iters = n_iters ; self.weights = weights
 
 
     def compute(self, X, tol=0.009, d=2, Gs_PSD_trans=True):

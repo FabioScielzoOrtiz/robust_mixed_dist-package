@@ -42,6 +42,16 @@ def Sokal_dist(xi, xr) :
     -------
     The Sokal distance between the observations `xi` and `xr`.
     """
+
+    if isinstance(xi, (pl.DataFrame, pd.DataFrame)) :
+        xi = xi.to_numpy().flatten()
+    elif isinstance(xi, (pd.Series, pl.Series)) :
+        xi = xi.to_numpy() 
+    if isinstance(xr, (pl.DataFrame, pd.DataFrame)) :
+        xr = xr.to_numpy().flatten()
+    elif isinstance(xr, (pd.Series, pl.Series)) :
+        xr = xr.to_numpy() 
+
     return distance.sokalmichener(xi, xr)
 
 ################################################################################
@@ -83,6 +93,16 @@ def Jaccard_dist(xi, xr) :
     -------
     The Jaccard distance between the observations `xi` and `xr`.
     """
+
+    if isinstance(xi, (pl.DataFrame, pd.DataFrame)) :
+        xi = xi.to_numpy().flatten()
+    elif isinstance(xi, (pd.Series, pl.Series)) :
+        xi = xi.to_numpy() 
+    if isinstance(xr, (pl.DataFrame, pd.DataFrame)) :
+        xr = xr.to_numpy().flatten()
+    elif isinstance(xr, (pd.Series, pl.Series)) :
+        xr = xr.to_numpy() 
+        
     return distance.jaccard(xi, xr)
 
 ################################################################################

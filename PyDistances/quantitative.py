@@ -46,6 +46,16 @@ def Euclidean_dist(xi, xr) :
     -------
     The Euclidean distance between the observations `xi` and `xr`.
     """
+
+    if isinstance(xi, (pl.DataFrame, pd.DataFrame)) :
+        xi = xi.to_numpy().flatten()
+    elif isinstance(xi, (pd.Series, pl.Series)) :
+        xi = xi.to_numpy() 
+    if isinstance(xr, (pl.DataFrame, pd.DataFrame)) :
+        xr = xr.to_numpy().flatten()
+    elif isinstance(xr, (pd.Series, pl.Series)) :
+        xr = xr.to_numpy() 
+
     return distance.euclidean(xi, xr)
 
 ################################################################################
@@ -89,6 +99,16 @@ def Minkowski_dist(xi, xr, q) :
     -------
     The Minkowki(`q`) distance between the observations `xi` and `xr`.
     """
+
+    if isinstance(xi, (pl.DataFrame, pd.DataFrame)) :
+        xi = xi.to_numpy().flatten()
+    elif isinstance(xi, (pd.Series, pl.Series)) :
+        xi = xi.to_numpy() 
+    if isinstance(xr, (pl.DataFrame, pd.DataFrame)) :
+        xr = xr.to_numpy().flatten()
+    elif isinstance(xr, (pd.Series, pl.Series)) :
+        xr = xr.to_numpy() 
+
     return distance.minkowski(xi, xr, q)
 
 ################################################################################
@@ -130,6 +150,16 @@ def Canberra_dist(xi, xr) :
     -------
     The Canberra distance between the observations `xi` and `xr`.
     """
+
+    if isinstance(xi, (pl.DataFrame, pd.DataFrame)) :
+        xi = xi.to_numpy().flatten()
+    elif isinstance(xi, (pd.Series, pl.Series)) :
+        xi = xi.to_numpy() 
+    if isinstance(xr, (pl.DataFrame, pd.DataFrame)) :
+        xr = xr.to_numpy().flatten()
+    elif isinstance(xr, (pd.Series, pl.Series)) :
+        xr = xr.to_numpy() 
+
     return distance.canberra(xi, xr)
 
 ################################################################################
@@ -197,6 +227,16 @@ def Mahalanobis_dist(xi, xr, S) :
     -------
     The Mahalanobis distance between the observations `xi` and `xr`.
     """
+
+    if isinstance(xi, (pl.DataFrame, pd.DataFrame)) :
+        xi = xi.to_numpy().flatten()
+    elif isinstance(xi, (pd.Series, pl.Series)) :
+        xi = xi.to_numpy() 
+    if isinstance(xr, (pl.DataFrame, pd.DataFrame)) :
+        xr = xr.to_numpy().flatten()
+    elif isinstance(xr, (pd.Series, pl.Series)) :
+        xr = xr.to_numpy() 
+
     return distance.mahalanobis(xi, xr, S)
 
 ################################################################################
@@ -483,7 +523,7 @@ def delvin_algorithm(M, epsilon, n_iters):
 
 ################################################################################
 
-def S_robust(X, method, alpha, epsilon, n_iters, weights=None):
+def S_robust(X, method, epsilon, n_iters, alpha=None, weights=None):
     """
     Computes the robust covariance of the data matrix `X` by different methods.
 
@@ -578,6 +618,15 @@ def Robust_Maha_dist(xi, xr, S_robust) :
     -------
     The Robust Mahalanobis distance between the observations `xi` and `xr`.
     """
+
+    if isinstance(xi, (pl.DataFrame, pd.DataFrame)) :
+        xi = xi.to_numpy().flatten()
+    elif isinstance(xi, (pd.Series, pl.Series)) :
+        xi = xi.to_numpy() 
+    if isinstance(xr, (pl.DataFrame, pd.DataFrame)) :
+        xr = xr.to_numpy().flatten()
+    elif isinstance(xr, (pd.Series, pl.Series)) :
+        xr = xr.to_numpy() 
 
     X = np.array([xi, xr])
     dist_xi_xr = Robust_Maha_dist_matrix(X, S_robust)
