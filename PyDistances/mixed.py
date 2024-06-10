@@ -457,7 +457,6 @@ class GG_dist:
         Returns:
             dist: the Generalized Gower distance between the observations `xi` and `xr`.
         """
-
         get_dist_obs_ = get_dist_obs(p1=self.p1, p2=self.p2, p3=self.p3, 
                                      d1=self.d1, d2=self.d2, d3=self.d3, 
                                      q=self.q, S=self.S, S_robust=self.S_robust)
@@ -553,7 +552,6 @@ class RelMS_dist_matrix:
         Returns:
             D: the Related Metric Scaling matrix for the data matrix `X`.
         """
-
         get_dist_matrices_ = get_dist_matrices(p1=self.p1, p2=self.p2, p3=self.p3, 
                                                d1=self.d1, d2=self.d2, d3=self.d3, 
                                                q=self.q, method=self.method, epsilon=self.epsilon, 
