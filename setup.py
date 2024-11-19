@@ -12,7 +12,7 @@ setup(
     description="PyDistances is a Python package for computing classic statistical distances as well as new proposals suitable for mixed multivariate data, even with outliers.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/FabioScielzoOrtiz/Distances_Package",  # add your project URL here
+    url="https://github.com/FabioScielzoOrtiz/PyDistances-package",  # add your project URL here
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
