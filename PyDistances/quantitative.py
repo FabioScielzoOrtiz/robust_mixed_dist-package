@@ -14,7 +14,7 @@ def euclidean_dist_matrix(X):
 
     Parameters (inputs)
     ----------
-    X: a pandas/polars DataFrame or a NumPy array. It represents a data matrix.
+    X: a Pandas or Polars DataFrame or a NumPy array. It represents a data matrix.
 
     Returns (outputs)
     -------
@@ -40,7 +40,8 @@ def euclidean_dist(xi, xr) :
 
     Parameters (inputs)
     ----------
-    xi, xr: a pair of quantitative vectors. They represent a couple of statistical observations.
+    xi, xr: a pair of Pandas or Polars Series or DataFrames. 
+            They represent a couple of statistical observations of quantitative variables. 
 
     Returns (outputs)
     -------
@@ -66,7 +67,7 @@ def minkowski_dist_matrix(X, q):
 
     Parameters (inputs)
     ----------
-    X: a pandas/polars DataFrame or a NumPy array. It represents a data matrix.
+    X: a Pandas or Polars DataFrame or a NumPy array. It represents a data matrix.
     q: the parameters that defines the Minkowski form. Some particular cases: q=1 := Manhattan, q=2 := Euclidean.
 
     Returns (outputs)

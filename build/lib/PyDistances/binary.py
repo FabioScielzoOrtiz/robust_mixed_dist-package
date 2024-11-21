@@ -5,7 +5,7 @@ from scipy.spatial.distance import pdist, squareform
 
 ################################################################################
 
-def Sokal_dist_matrix(X):
+def sokal_dist_matrix(X):
     """
     Calculates the Sokal distance matrix for a data matrix `X` using SciPy.
 
@@ -30,7 +30,7 @@ def Sokal_dist_matrix(X):
 
 ################################################################################
 
-def Sokal_dist(xi, xr) :
+def sokal_dist(xi, xr) :
     """
     Calculates the Sokal distance between a pair of vectors.
 
@@ -56,7 +56,7 @@ def Sokal_dist(xi, xr) :
 
 ################################################################################
 
-def Jaccard_dist_matrix(X):
+def jaccard_dist_matrix(X):
     """
     Calculates the Jaccard distance matrix for a data matrix `X` using SciPy.
 
@@ -81,7 +81,7 @@ def Jaccard_dist_matrix(X):
 
 ################################################################################
 
-def Jaccard_dist(xi, xr) :
+def jaccard_dist(xi, xr) :
     """
     Calculates the Jaccard distance between a pair of vectors.
 
