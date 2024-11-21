@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: PyDistances
-Version: 0.0.34
+Version: 0.0.35
 Summary: PyDistances is a Python package for computing classic statistical distances as well as new proposals suitable for mixed multivariate data, even with outliers.
 Home-page: https://github.com/FabioScielzoOrtiz/PyDistances-package
 Author: Fabio Scielzo Ortiz

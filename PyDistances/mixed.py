@@ -360,24 +360,21 @@ class GGowerDist:
 
         if d1 in ['robust_mahalanobis', 'mahalanobis']:
 
-            if X is None: 
-                raise ValueError('X is required if  d1=\'robust_mahalanobis\' or d1=\'mahalanobis\'') 
-            else:
-                if isinstance(X, (pl.DataFrame, pd.DataFrame)) :
-                   X = X.to_numpy()
-                X_quant = X[:, 0:p1] 
+            if isinstance(X, (pl.DataFrame, pd.DataFrame)) :
+                X = X.to_numpy()
+            X_quant = X[:, 0:p1] 
 
-                if d1 == 'robust_mahalanobis':
-                    self.S_robust = S_robust(X=X_quant, method=self.robust_method, alpha=self.alpha, 
-                                              epsilon=self.epsilon, n_iters=self.n_iters, weights=self.weights)
-                elif d1 == 'mahalanobis':
-                    self.S = np.cov(X_quant, rowvar=False)
+            if d1 == 'robust_mahalanobis':
+                self.S_robust = S_robust(X=X_quant, method=self.robust_method, alpha=self.alpha, 
+                                            epsilon=self.epsilon, n_iters=self.n_iters, weights=self.weights)
+            elif d1 == 'mahalanobis':
+                self.S = np.cov(X_quant, rowvar=False)
 
-                self.VG1, self.VG2, self.VG3 = vg_ggower_fast_estimation(X=X, p1=p1, p2=p2, p3=p3, d1=d1, d2=d2, d3=d3, robust_method=self.robust_method, 
-                                                                         alpha=self.alpha, epsilon=self.epsilon, n_iters=self.n_iters,
-                                                                         VG_sample_size=self.VG_sample_size, VG_n_samples=self.VG_n_samples, 
-                                                                         random_state=self.random_state, weights=self.weights)
-        
+        self.VG1, self.VG2, self.VG3 = vg_ggower_fast_estimation(X=X, p1=p1, p2=p2, p3=p3, d1=d1, d2=d2, d3=d3, robust_method=self.robust_method, 
+                                                                 alpha=self.alpha, epsilon=self.epsilon, n_iters=self.n_iters,
+                                                                 VG_sample_size=self.VG_sample_size, VG_n_samples=self.VG_n_samples, 
+                                                                 random_state=self.random_state, weights=self.weights)
+    
     def compute(self, xi, xr):
         """
         Compute method.
