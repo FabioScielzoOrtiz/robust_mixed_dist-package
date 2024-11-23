@@ -1,5 +1,9 @@
-# Development Python Version: 3.12.0
-polars
-numpy
-pandas
-scipy
+numpy==2.0.2
+pandas==2.2.3
+polars==1.14.0
+PyMachineLearning==0.0.23
+pytz==2024.2
+requests==2.32.3
+scikit-learn==1.5.2
+scipy==1.13.1
+setuptools==75.6.0
