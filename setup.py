@@ -8,7 +8,7 @@ setup(
     version="0.0.36",
     author="Fabio Scielzo Ortiz",
     author_email="fabioscielzo98@gmail.com",
-    description="PyDistances is a Python package for computing classic statistical distances as well as new proposals suitable for mixed multivariate data, even with outliers.",
+    description="For more information, check out the official documentation of `PyDistances` at: https://fabioscielzoortiz.github.io/PyDistances-book/intro.html",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/FabioScielzoOrtiz/PyDistances-package",  # add your project URL here
