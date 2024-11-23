@@ -4,3 +4,9 @@
 
 The theoretical aspects regarding the package and specially the new proposed distances can be found in the following Master’s Thesis, written by Fabio Scielzo Ortiz: [TO DO]
 
+## Tests
+To run the tests locally: 
+
+```commandline
+python -m unittest discover -s unittests
+```
