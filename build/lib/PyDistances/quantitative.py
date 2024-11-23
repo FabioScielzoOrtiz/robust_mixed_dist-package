@@ -535,7 +535,7 @@ def S_robust(X, method, epsilon, n_iters, alpha=None, weights=None):
     alpha : a real number in [0,1] that is used if `method` is 'trimmed' or 'winsorized'.
     epsilon : parameter used by the Delvin transformation. epsilon=0.05 is recommended.
     n_iter : maximum number of iterations run by the Delvin algorithm.
-    weights: the sample weights.
+    weights: the sample weights. Only used if provided.
 
     Returns (outputs)
     -------

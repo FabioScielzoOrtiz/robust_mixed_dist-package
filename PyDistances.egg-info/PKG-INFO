@@ -1,7 +1,7 @@
 Metadata-Version: 2.1
 Name: PyDistances
-Version: 0.0.36
-Summary: PyDistances is a Python package for computing classic statistical distances as well as new proposals suitable for mixed multivariate data, even with outliers.
+Version: 0.0.38
+Summary: For more information, check out the official documentation of `PyDistances` at: https://fabioscielzoortiz.github.io/PyDistances-book/intro.html
 Home-page: https://github.com/FabioScielzoOrtiz/PyDistances-package
 Author: Fabio Scielzo Ortiz
 Author-email: fabioscielzo98@gmail.com
@@ -14,7 +14,5 @@ License-File: LICENSE
 
 # PyDistances
 
-`PyDistances` is a `Python` package for computing classic statistical distances as well as new proposals suitable for mixed multivariate data, even with outliers.
-
-The theoretical aspects regarding the package and specially the new proposed distances can be found in the following Master’s Thesis, written by Fabio Scielzo Ortiz: [TO DO]
+For more information, check out the official documentation of `PyDistances` at: https://fabioscielzoortiz.github.io/PyDistances-book/intro.html
 

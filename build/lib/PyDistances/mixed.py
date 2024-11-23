@@ -67,7 +67,7 @@ def get_dist_matrices(X, p1, p2, p3, d1='euclidean', d2='sokal', d3='matching', 
       robust_method: the robust_method to be used for computing the robust covariance matrix. Only needed when d1 = 'robust_mahalanobis'.
       epsilon: parameter used by the Delvin algorithm that is used when computing the robust covariance matrix. Only needed when d1 = 'robust_mahalanobis'.
       n_iter: maximum number of iterations used by the Delvin algorithm. Only needed when d1 = 'robust_mahalanobis'.
-      weights: the sample weights.
+      weights: the sample weights. Only used if provided and d1 = 'robust_mahalanobis'.  
         
     Returns:
       D1, D2, D3: the distances matrices associated to the quantitative, binary and multi-class variables, respectively.
@@ -171,7 +171,7 @@ def vg_ggower_estimation(X, p1, p2, p3, d1='euclidean', d2='sokal', d3='matching
         robust_method: the robust_method to be used for computing the robust covariance matrix. Only needed when d1 = 'robust_mahalanobis'.
         epsilon: parameter used by the Delvin algorithm that is used when computing the robust covariance matrix. Only needed when d1 = 'robust_mahalanobis'.
         n_iter: maximum number of iterations used by the Delvin algorithm. Only needed when d1 = 'robust_mahalanobis'.
-        weights: the sample weights.
+        weights: the sample weights. Only used if provided and d1 = 'robust_mahalanobis'.  
             
     Returns:
         VG1, VG2, VG3: the geometric variabilities of the distances matrices associated to the quantitative, binary and multi-class variables, respectively.
@@ -204,7 +204,7 @@ def vg_ggower_fast_estimation(X, p1, p2, p3, d1='euclidean', d2='sokal', d3='mat
         robust_method: the robust_method to be used for computing the robust covariance matrix. Only needed when d1 = 'robust_mahalanobis'.
         epsilon: parameter used by the Delvin algorithm that is used when computing the robust covariance matrix. Only needed when d1 = 'robust_mahalanobis'.
         n_iter: maximum number of iterations used by the Delvin algorithm. Only needed when d1 = 'robust_mahalanobis'.
-        weights: the sample weights.
+        weights: the sample weights. Only used if provided and d1 = 'robust_mahalanobis'.  
         VG_sample_size: sample size to be used to make the estimation of the geometric variability.
         VG_n_samples: number of samples to be used to make the estimation of the geometric variability.
         random_state: the random seed used for the (random) sample elements.
@@ -263,7 +263,7 @@ class GGowerDistMatrix:
             alpha : a real number in [0,1] that is used if `robust_method` is 'trimmed' or 'winsorized'. Only needed when d1 = 'robust_mahalanobis'.
             epsilon : parameter used by the Delvin transformation. epsilon=0.05 is recommended. Only needed when d1 = 'robust_mahalanobis'.
             n_iter : maximum number of iterations run by the Delvin algorithm. Only needed when d1 = 'robust_mahalanobis'.
-            weights: the sample weights.
+            weights: the sample weights. Only used if provided and d1 = 'robust_mahalanobis'.  
             fast_VG: whether the geometric variability estimation will be full (False) or fast (True).
             VG_sample_size: sample size to be used to make the estimation of the geometric variability.
             VG_n_samples: number of samples to be used to make the estimation of the geometric variability.
@@ -332,7 +332,7 @@ class GGowerDist:
             robust_method: the robust_method to be used for computing the robust covariance matrix. Only needed when d1 = 'robust_mahalanobis'.
             epsilon: parameter used by the Delvin algorithm that is used when computing the robust covariance matrix. Only needed when d1 = 'robust_mahalanobis'.
             n_iter: maximum number of iterations used by the Delvin algorithm. Only needed when d1 = 'robust_mahalanobis'.
-            weights: the sample weights.
+            weights: the sample weights. Only used if provided and d1 = 'robust_mahalanobis'.  
             VG_sample_size: sample size to be used to make the estimation of the geometric variability.
             VG_n_samples: number of samples to be used to make the estimation of the geometric variability.
             random_state: the random seed used for the (random) sample elements.
@@ -458,7 +458,7 @@ class RelMSDistMatrix:
             robust_method: the robust_method to be used for computing the robust covariance matrix. Only needed when d1 = 'robust_mahalanobis'.
             epsilon: parameter used by the Delvin algorithm that is used when computing the robust covariance matrix. Only needed when d1 = 'robust_mahalanobis'.
             n_iter: maximum number of iterations used by the Delvin algorithm. Only needed when d1 = 'robust_mahalanobis'.
-            weights: the sample weights.
+            weights: the sample weights. Only used if provided and d1 = 'robust_mahalanobis'.  
         """
         self.p1 = p1 ; self.p2 = p2 ; self.p3 = p3
         self.d1 = d1 ; self.d2 = d2 ; self.d3 = d3
@@ -622,7 +622,7 @@ class FastGGowerDistMatrix:
             VG_sample_size: sample size to be used to make the estimation of the geometric variability.
             VG_n_samples: number of samples to be used to make the estimation of the geometric variability.
             random_state: the random seed used for the (random) sample elements.
-            weights: the sample weights.
+            weights: the sample weights. Only used if provided and d1 = 'robust_mahalanobis'.  
         """
         self.random_state = random_state; self.frac_sample_size = frac_sample_size; self.p1 = p1; self.p2 = p2; self.p3 = p3; 
         self.d1 = d1; self.d2 = d2; self.d3 = d3; self.robust_method = robust_method; self.alpha = alpha; self.epsilon = epsilon; 
