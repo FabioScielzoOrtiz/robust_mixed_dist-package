@@ -8,13 +8,13 @@ from scipy import sparse
 
 ################################################################################
 
-def Euclidean_dist_matrix(X):
+def euclidean_dist_matrix(X):
     """
     Calculates the Euclidean distance matrix for a data matrix using SciPy.
 
     Parameters (inputs)
     ----------
-    X: a pandas/polars DataFrame or a NumPy array. It represents a data matrix.
+    X: a Pandas or Polars DataFrame or a NumPy array. It represents a data matrix.
 
     Returns (outputs)
     -------
@@ -34,13 +34,14 @@ def Euclidean_dist_matrix(X):
 
 ################################################################################
 
-def Euclidean_dist(xi, xr) :
+def euclidean_dist(xi, xr) :
     """
     Calculates the Euclidean distance between a pair of vectors.
 
     Parameters (inputs)
     ----------
-    xi, xr: a pair of quantitative vectors. They represent a couple of statistical observations.
+    xi, xr: a pair of Pandas or Polars Series or DataFrames. 
+            They represent a couple of statistical observations of quantitative variables. 
 
     Returns (outputs)
     -------
@@ -60,13 +61,13 @@ def Euclidean_dist(xi, xr) :
 
 ################################################################################
 
-def Minkowski_dist_matrix(X, q):
+def minkowski_dist_matrix(X, q):
     """
     Calculates the Minkowski distance matrix for a data matrix using SciPy.
 
     Parameters (inputs)
     ----------
-    X: a pandas/polars DataFrame or a NumPy array. It represents a data matrix.
+    X: a Pandas or Polars DataFrame or a NumPy array. It represents a data matrix.
     q: the parameters that defines the Minkowski form. Some particular cases: q=1 := Manhattan, q=2 := Euclidean.
 
     Returns (outputs)
@@ -86,7 +87,7 @@ def Minkowski_dist_matrix(X, q):
 
 ################################################################################
 
-def Minkowski_dist(xi, xr, q) :
+def minkowski_dist(xi, xr, q) :
     """
     Calculates the Minkowski distance between a pair of vectors.
 
@@ -113,7 +114,7 @@ def Minkowski_dist(xi, xr, q) :
 
 ################################################################################
 
-def Canberra_dist_matrix(X):
+def canberra_dist_matrix(X):
     """
     Calculates the Canberra distance matrix for a data matrix using SciPy.
 
@@ -138,7 +139,7 @@ def Canberra_dist_matrix(X):
 
 ################################################################################
 
-def Canberra_dist(xi, xr) :
+def canberra_dist(xi, xr) :
     """
     Calculates the Canberra distance between a pair of vectors.
 
@@ -164,7 +165,7 @@ def Canberra_dist(xi, xr) :
 
 ################################################################################
 
-def Pearson_dist_matrix(X):
+def pearson_dist_matrix(X):
     """
     Calculates the Pearson distance matrix for a data matrix using SciPy.
 
@@ -189,7 +190,7 @@ def Pearson_dist_matrix(X):
 
 ################################################################################
 
-def Mahalanobis_dist_matrix(X):
+def mahalanobis_dist_matrix(X):
     """
     Calculates the Mahalanobis distance matrix for a data matrix using SciPy.
 
@@ -214,7 +215,7 @@ def Mahalanobis_dist_matrix(X):
 
 ################################################################################
 
-def Mahalanobis_dist(xi, xr, S) :
+def mahalanobis_dist(xi, xr, S) :
     """
     Calculates the Mahalanobis distance between a pair of vectors.
 
@@ -241,7 +242,7 @@ def Mahalanobis_dist(xi, xr, S) :
 
 ################################################################################
 
-def MAD(Xj) :
+def mad(Xj) :
     """
     Compute the median absolute deviation of a statistical variable.
 
@@ -259,9 +260,9 @@ def MAD(Xj) :
     elif isinstance(Xj, pd.Series):
         Xj = Xj.to_numpy()
 
-    MAD = np.median(np.abs(Xj - np.median(Xj)))
+    mad_ = np.median(np.abs(Xj - np.median(Xj)))
 
-    return MAD
+    return mad_
 
 ################################################################################
 
@@ -345,7 +346,7 @@ def robust_var(Xj, method, alpha=None) :
 
     if method == 'MAD' :
         
-        return MAD(Xj)**2
+        return mad(Xj)**2
 
     if method == 'trimmed' :
         
@@ -573,7 +574,7 @@ def S_robust(X, method, epsilon, n_iters, alpha=None, weights=None):
 
 ################################################################################
 
-def Robust_Maha_dist_matrix(X, S_robust):
+def robust_maha_dist_matrix(X, S_robust):
     """
     Calculates the Robust Mahalanobis distance matrix for a data matrix `X` using SciPy and a robust estimation of the covariance matrix.
 
@@ -605,7 +606,7 @@ def Robust_Maha_dist_matrix(X, S_robust):
 
 ################################################################################
 
-def Robust_Maha_dist(xi, xr, S_robust) :
+def robust_maha_dist(xi, xr, S_robust) :
     """
     Calculates the Robust Mahalanobis distance between a pair of vectors.
 
@@ -629,7 +630,7 @@ def Robust_Maha_dist(xi, xr, S_robust) :
         xr = xr.to_numpy() 
 
     X = np.array([xi, xr])
-    dist_xi_xr = Robust_Maha_dist_matrix(X, S_robust)
+    dist_xi_xr = robust_maha_dist_matrix(X, S_robust)
     dist_xi_xr = dist_xi_xr[0,1]
     
     return dist_xi_xr

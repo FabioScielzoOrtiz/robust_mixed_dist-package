@@ -5,9 +5,9 @@ from scipy.spatial.distance import pdist, squareform
 
 ################################################################################
 
-def Matching_dist_matrix(X):
+def hamming_dist_matrix(X):
     """
-    Calculates the Matching distance matrix for a data matrix `X` using SciPy.
+    Calculates the hamming distance matrix for a data matrix `X` using SciPy.
 
     Parameters (inputs)
     ----------
@@ -15,7 +15,7 @@ def Matching_dist_matrix(X):
 
     Returns (outputs)
     -------
-    M: the Matching distance matrix between the rows of X.
+    M: the hamming distance matrix between the rows of X.
     """
 
     if isinstance(X, pl.DataFrame):
@@ -30,9 +30,9 @@ def Matching_dist_matrix(X):
 
 ################################################################################
 
-def Matching_dist(xi, xr) :
+def hamming_dist(xi, xr) :
     """
-    Calculates the Matching distance between a pair of vectors.
+    Calculates the hamming distance between a pair of vectors.
 
     Parameters (inputs)
     ----------
@@ -40,7 +40,7 @@ def Matching_dist(xi, xr) :
 
     Returns (outputs)
     -------
-    The Matching distance between the observations `xi` and `xr`.
+    The hamming distance between the observations `xi` and `xr`.
     """
 
     if isinstance(xi, (pl.DataFrame, pd.DataFrame)) :
