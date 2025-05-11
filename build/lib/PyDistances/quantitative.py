@@ -237,8 +237,11 @@ def mahalanobis_dist(xi, xr, S) :
         xr = xr.to_numpy().flatten()
     elif isinstance(xr, (pd.Series, pl.Series)) :
         xr = xr.to_numpy() 
+    
+    S_inv = np.linalg.inv(S) 
+    dist = distance.mahalanobis(xi, xr, S_inv)
 
-    return distance.mahalanobis(xi, xr, S)
+    return dist
 
 ################################################################################
 

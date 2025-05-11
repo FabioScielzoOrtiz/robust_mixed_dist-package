@@ -9,28 +9,36 @@ from PyDistances.multiclass import hamming_dist_matrix, hamming_dist
 
 ################################################################################
 
-dist_matrix = dict()
-dist_matrix['euclidean'] = euclidean_dist_matrix
-dist_matrix['minkowski'] = minkowski_dist_matrix
-dist_matrix['canberra'] = canberra_dist_matrix
-dist_matrix['pearson'] = pearson_dist_matrix
-dist_matrix['mahalanobis'] = mahalanobis_dist_matrix
-dist_matrix['robust_mahalanobis'] = robust_maha_dist_matrix
-dist_matrix['sokal'] = sokal_dist_matrix
-dist_matrix['jaccard'] = jaccard_dist_matrix
-dist_matrix['hamming'] = hamming_dist_matrix
+def get_dist_matrix_functions():
+        
+    dist_matrix = {}
+    dist_matrix['euclidean'] = euclidean_dist_matrix
+    dist_matrix['minkowski'] = minkowski_dist_matrix
+    dist_matrix['canberra'] = canberra_dist_matrix
+    dist_matrix['pearson'] = pearson_dist_matrix
+    dist_matrix['mahalanobis'] = mahalanobis_dist_matrix
+    dist_matrix['robust_mahalanobis'] = robust_maha_dist_matrix
+    dist_matrix['sokal'] = sokal_dist_matrix
+    dist_matrix['jaccard'] = jaccard_dist_matrix
+    dist_matrix['hamming'] = hamming_dist_matrix
+
+    return dist_matrix
 
 ################################################################################
 
-dist = dict()
-dist['euclidean'] = euclidean_dist
-dist['minkowski'] = minkowski_dist
-dist['canberra'] = canberra_dist
-dist['mahalanobis'] = mahalanobis_dist
-dist['robust_mahalanobis'] = robust_maha_dist
-dist['sokal'] = sokal_dist
-dist['jaccard'] = jaccard_dist
-dist['hamming'] = hamming_dist
+def get_dist_functions():
+
+    dist = {}
+    dist['euclidean'] = euclidean_dist
+    dist['minkowski'] = minkowski_dist
+    dist['canberra'] = canberra_dist
+    dist['mahalanobis'] = mahalanobis_dist
+    dist['robust_mahalanobis'] = robust_maha_dist
+    dist['sokal'] = sokal_dist
+    dist['jaccard'] = jaccard_dist
+    dist['hamming'] = hamming_dist
+
+    return dist
 
 ################################################################################
 
@@ -48,6 +56,7 @@ def vg(D_2):
     """
     n = len(D_2)
     VG = (1/(2*(n**2)))*np.sum(D_2)
+    # TO DO: version managing weights
     return VG
 
 ################################################################################
@@ -77,6 +86,8 @@ def get_dist_matrices(X, p1, p2, p3, d1='euclidean', d2='sokal', d3='matching', 
         X = X.to_numpy()
     elif isinstance(X, pd.DataFrame):
         X = X.to_numpy() 
+
+    dist_matrix = get_dist_matrix_functions()
 
     n = len(X)
     X_quant = X[:, 0:p1] 
@@ -131,6 +142,8 @@ def get_distances(xi, xr, p1, p2, p3, d1='euclidean', d2='sokal', d3='matching',
         xr = xr.to_numpy().flatten()
     elif isinstance(xr, (pd.Series, pl.Series)) :
         xr = xr.to_numpy() 
+
+    dist = get_dist_functions()
                    
     xi_quant = xi[0:p1] ; xr_quant = xr[0:p1] ; 
     xi_bin = xi[(p1):(p1+p2)] ; xr_bin = xr[(p1):(p1+p2)]
@@ -397,7 +410,25 @@ class GGowerDist:
         dist = np.sqrt(dist_2)
 
         return dist
-    
+
+################################################################################
+
+def ggower_dist(xi, xr, p1, p2, p3, d1='euclidean', d2='sokal', d3='matching', 
+                q=1, S=None, S_robust=None, VG1=None, VG2=None, VG3=None):
+   
+    dist1, dist2, dist3 = get_distances(xi=xi, xr=xr, p1=p1, p2=p2, p3=p3, 
+                                        d1=d1, d2=d2, d3=d3, 
+                                        q=q, S=S, S_robust=S_robust)
+        
+    dist1_2 = dist1**2 ; dist2_2 = dist2**2 ; dist3_2 = dist3**2
+    dist1_2_std = dist1_2/VG1 if VG1 > 0 else dist1_2 
+    dist2_2_std = dist2_2/VG2 if VG2 > 0 else dist2_2 
+    dist3_2_std = dist3_2/VG3 if VG3 > 0 else dist3_2 
+    dist_2 = dist1_2_std + dist2_2_std + dist3_2_std
+    dist = np.sqrt(dist_2)
+
+    return dist
+
 ################################################################################
     
 def simple_gower_dist(xi, xr, X, p1, p2, p3) :
@@ -423,7 +454,9 @@ def simple_gower_dist(xi, xr, X, p1, p2, p3) :
         xr = xr.to_numpy().flatten()
     elif isinstance(xi, (pd.Series, pl.Series)) :
         xr = xr.to_numpy() 
-    
+
+    dist = get_dist_functions()
+
     X_quant = X[:,0:p1]  
     xi_quant = xi[0:p1] ; xr_quant = xr[0:p1] ; 
     xi_bin = xi[(p1):(p1+p2)] ; xr_bin = xr[(p1):(p1+p2)]
@@ -436,7 +469,23 @@ def simple_gower_dist(xi, xr, X, p1, p2, p3) :
     dist = dist1 + dist2 + dist3
 
     return dist
-    
+
+################################################################################
+
+def simple_gower_dist_matrix(X, p1, p2, p3):
+
+    D = np.zeros((len(X), len(X)))
+
+    for i in range(len(X)):
+        for r in range(len(X)):
+            if i <= r:
+                D[i,r] = simple_gower_dist(xi=X[i,:], xr=X[r,:], X=X, 
+                                           p1=p1, p2=p2, p3=p3)
+
+    D = D + D.T - np.diag(D.diagonal())
+
+    return D
+
 ################################################################################
     
 class RelMSDistMatrix: 
