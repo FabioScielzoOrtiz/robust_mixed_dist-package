@@ -82,10 +82,8 @@ def get_dist_matrices(X, p1, p2, p3, d1='euclidean', d2='sokal', d3='matching', 
       D1, D2, D3: the distances matrices associated to the quantitative, binary and multi-class variables, respectively.
     """
  
-    if isinstance(X, pl.DataFrame):
+    if isinstance(X, (pl.DataFrame, pd.DataFrame)):
         X = X.to_numpy()
-    elif isinstance(X, pd.DataFrame):
-        X = X.to_numpy() 
 
     dist_matrix = get_dist_matrix_functions()
 
@@ -375,6 +373,7 @@ class GGowerDist:
 
             if isinstance(X, (pl.DataFrame, pd.DataFrame)) :
                 X = X.to_numpy()
+                
             X_quant = X[:, 0:p1] 
 
             if d1 == 'robust_mahalanobis':
@@ -473,6 +472,9 @@ def simple_gower_dist(xi, xr, X, p1, p2, p3) :
 ################################################################################
 
 def simple_gower_dist_matrix(X, p1, p2, p3):
+
+    if isinstance(X, (pl.DataFrame, pd.DataFrame)) :
+        X = X.to_numpy()  
 
     D = np.zeros((len(X), len(X)))
 
