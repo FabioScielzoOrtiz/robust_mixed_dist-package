@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from itertools import product
 from scipy.spatial import distance
-from scipy.spatial.distance import pdist, squareform
+from scipy.spatial.distance import pdist, squareform, cdist
 from scipy import sparse
 
 ################################################################################
@@ -192,26 +192,41 @@ def pearson_dist_matrix(X):
 
 def mahalanobis_dist_matrix(X):
     """
-    Calculates the Mahalanobis distance matrix for a data matrix using SciPy.
+    Calculates the classical Mahalanobis distance matrix for a data matrix `X`.
 
-    Parameters (inputs)
+    Parameters
     ----------
-    X: a pandas/polars DataFrame or a NumPy array. It represents a data matrix.
+    X : pandas.DataFrame, polars.DataFrame, or np.ndarray
+        Data matrix of shape (n_samples, n_features).
 
-    Returns (outputs)
+    Returns
     -------
-    M: the Mahalanobis distance matrix between the rows of X.
+    D : np.ndarray
+        Symmetric matrix (n_samples x n_samples) of Mahalanobis distances.
     """
-
+    
+    # Convert to numpy array if needed
     if isinstance(X, pl.DataFrame):
         X = X.to_numpy()
-    if isinstance(X, pd.DataFrame):
-        X = X.to_numpy()    
-           
-    # Compute the pairwise distances using pdist and convert to a square form.
-    M = squareform(pdist(X, metric='mahalanobis'))
-    
-    return M
+    elif isinstance(X, pd.DataFrame):
+        X = X.to_numpy()
+
+    # Center the data
+    X_centered = X - np.mean(X, axis=0)
+
+    # Classical covariance matrix
+    S = np.cov(X_centered, rowvar=False)
+
+    # Use pseudo-inverse for numerical stability
+    S_pinv = np.linalg.pinv(S)
+
+    # Symmetrize just in case
+    S_pinv = (S_pinv + S_pinv.T) / 2
+
+    # Compute Mahalanobis distance matrix
+    D = cdist(X_centered, X_centered, metric='mahalanobis', VI=S_pinv)
+
+    return D
 
 ################################################################################
 
@@ -579,33 +594,43 @@ def S_robust(X, method, epsilon, n_iters, alpha=None, weights=None):
 
 def robust_maha_dist_matrix(X, S_robust):
     """
-    Calculates the Robust Mahalanobis distance matrix for a data matrix `X` using SciPy and a robust estimation of the covariance matrix.
+    Calculates the Robust Mahalanobis distance matrix for a data matrix `X`
+    using a robust estimation of the covariance matrix.
 
-    Parameters (inputs)
+    Parameters
     ----------
-    X: a pandas/polars DataFrame or a NumPy array. It represents a data matrix.
-    S_robust: the robust covariance matrix of `X`.
+    X : pandas.DataFrame, polars.DataFrame, or np.ndarray
+        The input data matrix with shape (n_samples, n_features).
+    
+    S_robust : np.ndarray
+        Robust covariance matrix (e.g., from MCD or a trimmed estimator).
+        Should be of shape (n_features, n_features).
 
-    Returns (outputs)
+    Returns
     -------
-    M: the Robust Mahalanobis distance matrix between the rows of X.
+    D : np.ndarray
+        Symmetric matrix (n_samples, n_samples) of Mahalanobis distances.
     """
 
+    # Convert input to NumPy array if needed
     if isinstance(X, pl.DataFrame):
         X = X.to_numpy()
     elif isinstance(X, pd.DataFrame):
-        X = X.to_numpy() 
+        X = X.to_numpy()
 
-    # Se calcula la inversa de la matriz de covarianzas robusta.     
-    try:
-        S_robust_inv = np.linalg.inv(S_robust)   
-    except:
-        S_robust_inv = np.linalg.pinv(S_robust)
+    # Center the data (important for Mahalanobis)
+    X_centered = X - np.mean(X, axis=0)
 
-    # Compute the pairwise distances using pdist and convert to a square form.
-    M = squareform(pdist(X, metric='mahalanobis', VI=S_robust_inv))
-    
-    return M
+    # Use pseudo-inverse for stability
+    S_robust_pinv = np.linalg.pinv(S_robust)
+
+    # Force symmetry (sometimes lost by numerical error)
+    S_robust_pinv = (S_robust_pinv + S_robust_pinv.T) / 2
+
+    # Compute pairwise Mahalanobis distances with cdist
+    D = cdist(X_centered, X_centered, metric='mahalanobis', VI=S_robust_pinv)
+
+    return D
 
 ################################################################################
 
@@ -637,3 +662,5 @@ def robust_maha_dist(xi, xr, S_robust) :
     dist_xi_xr = dist_xi_xr[0,1]
     
     return dist_xi_xr
+
+################################################################################

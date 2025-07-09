@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="PyDistances",
-    version="0.0.46",
+    version="0.0.51",
     author="Fabio Scielzo Ortiz",
     author_email="fabioscielzo98@gmail.com",
     description="For more information, check out the official documentation of `PyDistances` at: https://fabioscielzoortiz.github.io/PyDistances-book/intro.html",

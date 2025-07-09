@@ -82,10 +82,8 @@ def get_dist_matrices(X, p1, p2, p3, d1='euclidean', d2='sokal', d3='matching', 
       D1, D2, D3: the distances matrices associated to the quantitative, binary and multi-class variables, respectively.
     """
  
-    if isinstance(X, pl.DataFrame):
+    if isinstance(X, (pl.DataFrame, pd.DataFrame)):
         X = X.to_numpy()
-    elif isinstance(X, pd.DataFrame):
-        X = X.to_numpy() 
 
     dist_matrix = get_dist_matrix_functions()
 
@@ -375,6 +373,7 @@ class GGowerDist:
 
             if isinstance(X, (pl.DataFrame, pd.DataFrame)) :
                 X = X.to_numpy()
+                
             X_quant = X[:, 0:p1] 
 
             if d1 == 'robust_mahalanobis':
@@ -472,7 +471,11 @@ def simple_gower_dist(xi, xr, X, p1, p2, p3) :
 
 ################################################################################
 
+'''
 def simple_gower_dist_matrix(X, p1, p2, p3):
+
+    if isinstance(X, (pl.DataFrame, pd.DataFrame)) :
+        X = X.to_numpy()  
 
     D = np.zeros((len(X), len(X)))
 
@@ -485,6 +488,56 @@ def simple_gower_dist_matrix(X, p1, p2, p3):
     D = D + D.T - np.diag(D.diagonal())
 
     return D
+'''
+
+def simple_gower_dist_matrix(X, p1, p2, p3):
+    """
+    Cálculo matricial de la distancia simple de Gower entre todas las filas de X.
+
+    Parameters:
+        X: np.ndarray o DataFrame (se convierte a np.ndarray).
+        p1: número de columnas numéricas.
+        p2: número de columnas binarias.
+        p3: número de columnas categóricas (multi-clase).
+
+    Returns:
+        D: matriz de distancias (n x n) con la distancia de Gower simple entre observaciones.
+    """
+
+    # Convertir DataFrame si fuera necesario
+    if isinstance(X, (pd.DataFrame, pl.DataFrame)):
+        X = X.to_numpy()
+
+    dist_matrix = get_dist_matrix_functions()
+
+    # Separar bloques
+    X_quant = X[:, 0:p1] if p1 > 0 else None
+    X_bin = X[:, p1:p1 + p2] if p2 > 0 else None
+    X_multi = X[:, p1 + p2:p1 + p2 + p3] if p3 > 0 else None
+
+    n = X.shape[0]
+    D = np.zeros((n, n))
+
+    # Distancia cuantitativa: Manhattan normalizada por rango
+    if p1 > 0:
+        R = np.max(X_quant, axis=0) - np.min(X_quant, axis=0)
+        R[R == 0] = 1  # evitar división por cero
+        X_quant_norm = X_quant / R
+        dist_quant = dist_matrix['minkowski'](X_quant_norm, q=1)
+        D += dist_quant
+
+    # Distancia binaria: Jaccard
+    if p2 > 0:
+        dist_bin = dist_matrix['jaccard'](X_bin)
+        D += dist_bin
+
+    # Distancia categórica: Hamming (simple coincidencia)
+    if p3 > 0:
+        dist_multi = dist_matrix['hamming'](X_multi)
+        D += dist_multi
+
+    return D
+
 
 ################################################################################
     
@@ -494,7 +547,8 @@ class RelMSDistMatrix:
     """
 
     def __init__(self, p1,p2,p3,d1='euclidean',d2='sokal',d3='matching',q=1, robust_method='trimmed', 
-                 epsilon=0.05, alpha=0.05, n_iters=20, weights=None, fast_VG=False):
+                 epsilon=0.05, alpha=0.05, n_iters=20, weights=None, 
+                 fast_VG=False, VG_sample_size=300, VG_n_samples=5, random_state=123):
         """
         Constructor method.
         
@@ -506,16 +560,17 @@ class RelMSDistMatrix:
             q: the parameter that defines the Minkowski distance. Must be a positive integer.
             robust_method: the robust_method to be used for computing the robust covariance matrix. Only needed when d1 = 'robust_mahalanobis'.
             epsilon: parameter used by the Delvin algorithm that is used when computing the robust covariance matrix. Only needed when d1 = 'robust_mahalanobis'.
-            n_iter: maximum number of iterations used by the Delvin algorithm. Only needed when d1 = 'robust_mahalanobis'.
+            n_iters: maximum number of iterations used by the Delvin algorithm. Only needed when d1 = 'robust_mahalanobis'.
             weights: the sample weights. Only used if provided and d1 = 'robust_mahalanobis'.  
         """
         self.p1 = p1 ; self.p2 = p2 ; self.p3 = p3
         self.d1 = d1 ; self.d2 = d2 ; self.d3 = d3
         self.q = q ; self.robust_method = robust_method ; self.alpha = alpha ; self.fast_VG = fast_VG;
+        self.VG_sample_size = VG_sample_size; self.VG_n_samples = VG_n_samples; self.random_state = random_state;
         self.epsilon = epsilon ; self.n_iters = n_iters ; self.weights = weights
 
 
-    def compute(self, X, tol=0.009, d=2, Gs_PSD_trans=True):
+    def compute(self, X, tol=1e-6, d=2.5, Gs_PSD_transformation=True):
         """
         Compute method.
         
@@ -558,7 +613,7 @@ class RelMSDistMatrix:
         G_2 = -(1/2)*(H @ D2_std @ H) 
         G_3 = -(1/2)*(H @ D3_std @ H)
 
-        if Gs_PSD_trans == True :
+        if Gs_PSD_transformation == True :
 
             v1 = np.real(np.linalg.eigvals(G_1))
             v2 = np.real(np.linalg.eigvals(G_2))
@@ -566,31 +621,38 @@ class RelMSDistMatrix:
             v1[np.isclose(v1, 0, atol=tol)] = 0 
             v2[np.isclose(v2, 0, atol=tol)] = 0 
             v3[np.isclose(v3, 0, atol=tol)] = 0
-            G1_SDP = np.all(v1 >= 0)
-            G2_SDP = np.all(v2 >= 0) 
-            G3_SDP = np.all(v3 >= 0)
+            G1_PSD = np.all(v1 >= 0)
+            G2_PSD = np.all(v2 >= 0) 
+            G3_PSD = np.all(v3 >= 0)
 
-            if not G1_SDP :
+            if not G1_PSD :
+                
+                print('G1 is not PSD, a transformation to force it will be applied.')
 
-                omega = d*np.abs(np.min(v1))  
+                omega = d * np.abs(np.min(v1))  
                 D1_std  = D1_std + omega*ones_M - omega*I
                 G_1 = -(1/2)*(H @ D1_std @ H)
 
-            elif not G2_SDP :
+            if not G2_PSD :
 
-                omega = d*np.abs(np.min(v2)) 
+                print('G2 is not PSD, a transformation to force it will be applied.')
+                omega = d * np.abs(np.min(v2)) 
                 D2_std = D2_std + omega*ones_M - omega*I
                 G_2 = -(1/2)*(H @ D2_std @ H)
 
-            elif not G3_SDP :
+            if not G3_PSD :
 
-                omega = d*np.abs(np.min(v3))  
+                print('G3 is not PSD, a transformation to force it will be applied.')
+                omega = d * np.abs(np.min(v3))  
                 D3_std = D3_std + omega*ones_M - omega*I
                 G_3 = -(1/2)*(H @ D3_std @ H) 
         
         U1, S1, V1 = np.linalg.svd(G_1) 
         U2, S2, V2 = np.linalg.svd(G_2)   
         U3, S3, V3 = np.linalg.svd(G_3)
+        S1 = np.clip(S1, 0, None)
+        S2 = np.clip(S2, 0, None)
+        S3 = np.clip(S3, 0, None)
         sqrtG1 = U1 @ np.diag(np.sqrt(S1)) @ V1 
         sqrtG2 = U2 @ np.diag(np.sqrt(S2)) @ V2 
         sqrtG3 = U3 @ np.diag(np.sqrt(S3)) @ V3
@@ -600,7 +662,7 @@ class RelMSDistMatrix:
         g =  np.reshape(g, (len(g), 1))  
         g_T = np.reshape(g, (1, len(g)))   
         D_2_ = g @ ones_T + ones @ g_T - 2*G
-        D_2_[np.isclose(D_2_, 0, atol=0.001)] = 0
+        D_2_[np.isclose(D_2_, 0, atol=tol)] = 0
         D = np.sqrt(D_2_)
  
         return D    
