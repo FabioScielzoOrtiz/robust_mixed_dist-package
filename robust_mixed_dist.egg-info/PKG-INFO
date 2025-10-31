@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: robust-mixed-dist
-Version: 0.1.0
+Version: 0.1.1
 Summary: For more information, check out the official documentation of `robust_mixed_dist` at: https://fabioscielzoortiz.github.io/robust_mixed_dist-docu/intro.html
 Home-page: https://github.com/FabioScielzoOrtiz/robust_mixed_dist-package
 Author: Fabio Scielzo Ortiz
@@ -11,6 +11,10 @@ Classifier: Operating System :: OS Independent
 Requires-Python: >=3.7
 Description-Content-Type: text/markdown
 License-File: LICENSE
+Requires-Dist: polars
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: scipy
 Dynamic: author
 Dynamic: author-email
 Dynamic: classifier
@@ -18,6 +22,7 @@ Dynamic: description
 Dynamic: description-content-type
 Dynamic: home-page
 Dynamic: license-file
+Dynamic: requires-dist
 Dynamic: requires-python
 Dynamic: summary
 
