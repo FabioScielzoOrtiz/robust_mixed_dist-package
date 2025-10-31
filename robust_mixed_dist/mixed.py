@@ -1,11 +1,11 @@
 import polars as pl
 import numpy as np
 import pandas as pd
-from PyDistances.quantitative import (euclidean_dist_matrix, euclidean_dist, minkowski_dist_matrix, 
+from robust_mixed_dist.quantitative import (euclidean_dist_matrix, euclidean_dist, minkowski_dist_matrix, 
                                       minkowski_dist, canberra_dist_matrix, canberra_dist, pearson_dist_matrix, 
                                       mahalanobis_dist_matrix, mahalanobis_dist, robust_maha_dist_matrix, robust_maha_dist, S_robust)
-from PyDistances.binary import sokal_dist_matrix, sokal_dist, jaccard_dist_matrix, jaccard_dist
-from PyDistances.multiclass import hamming_dist_matrix, hamming_dist
+from robust_mixed_dist.binary import sokal_dist_matrix, sokal_dist, jaccard_dist_matrix, jaccard_dist
+from robust_mixed_dist.multiclass import hamming_dist_matrix, hamming_dist
 
 ################################################################################
 
@@ -687,20 +687,27 @@ def data_preprocessing(X, frac_sample_size, random_state):
     out_sample_index: the index of the out of sample observations/rows.
     """
 
-    if not (0 < frac_sample_size < 1):
-       raise ValueError('frac_sample_size must be in (0,1).')
+    if not (0 < frac_sample_size <= 1):
+       raise ValueError('frac_sample_size must be in (0,1].')
 
     if isinstance(X, (pd.DataFrame, pl.DataFrame)):
         X = X.to_numpy()
-
+    
     n = len(X)
-    n_sample = int(frac_sample_size*n)
-    index = np.arange(0,n)
-    np.random.seed(random_state)
-    sample_index = np.random.choice(index, size=n_sample, replace=False)
-    out_sample_index = np.array([x for x in index if x not in sample_index])
-    X_sample = X[sample_index,:] 
-    X_out_sample = X[out_sample_index,:] 
+
+    if frac_sample_size < 1:
+        n_sample = int(frac_sample_size*n)
+        index = np.arange(0,n)
+        np.random.seed(random_state)
+        sample_index = np.random.choice(index, size=n_sample, replace=False)
+        out_sample_index = np.array([x for x in index if x not in sample_index])
+        X_sample = X[sample_index,:] 
+        X_out_sample = X[out_sample_index,:] 
+    else:
+        X_sample = X
+        sample_index =  np.arange(0,n)
+        X_out_sample = np.array([])
+        out_sample_index = np.array([])
 
     return X_sample, X_out_sample, sample_index, out_sample_index
 

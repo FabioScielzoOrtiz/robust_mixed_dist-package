@@ -1,0 +1,27 @@
+Metadata-Version: 2.4
+Name: robust-mixed-dist
+Version: 0.1.0
+Summary: For more information, check out the official documentation of `robust_mixed_dist` at: https://fabioscielzoortiz.github.io/robust_mixed_dist-docu/intro.html
+Home-page: https://github.com/FabioScielzoOrtiz/robust_mixed_dist-package
+Author: Fabio Scielzo Ortiz
+Author-email: fabio.scielzoortiz@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+Dynamic: summary
+
+# robust_mixed_dist
+
+For more information, check out the official documentation of `robust_mixed_dist` at: https://fabioscielzoortiz.github.io/robust_mixed_dist-docu/intro.html
+
