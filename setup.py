@@ -5,10 +5,10 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="robust-mixed-dist",
-    version="0.1.1",
+    version="0.1.2",
     author="Fabio Scielzo Ortiz",
     author_email="fabio.scielzoortiz@gmail.com",
-    description="For more information, check out the official documentation of `robust_mixed_dist` at: https://fabioscielzoortiz.github.io/robust_mixed_dist-docu/intro.html",
+    description="",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/FabioScielzoOrtiz/robust_mixed_dist-package",  # add your project URL here
